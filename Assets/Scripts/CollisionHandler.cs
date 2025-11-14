@@ -1,24 +1,50 @@
 using System;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+
 public class CollisionHandler : MonoBehaviour
 {
     [SerializeField] private float levelLoadDelay = 2f;
-    [SerializeField] private AudioClip successSound;
-    [SerializeField] private AudioClip crashSound;
+    [SerializeField] private AudioClip successSFX;
+    [SerializeField] private AudioClip crashSFX;
+    [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem crashParticles;
     
     AudioSource audioSource;
+    
 
     private bool isControlable = true;
+    private bool isCollidable = true;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
+
+    private void Update()
+    {
+        RespontToDebugKeys();
+    }
+    
+    void RespontToDebugKeys()
+    {
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+        {
+            LoadNextLevel();
+        }
+        
+        else if (Keyboard.current.cKey.wasPressedThisFrame)
+        {
+            isCollidable = !isCollidable;
+            
+            Debug.Log("c key was pressed");
+        }
+    }
     private void OnCollisionEnter(Collision other)
     {
-        if(!isControlable) {return;}
+        if(!isControlable || !isCollidable) {return;}
         
         switch (other.gameObject.tag)
         {
@@ -37,25 +63,25 @@ public class CollisionHandler : MonoBehaviour
     private void StartCrashSequence()
     {
         isControlable = false;
-        audioSource.Stop();
-        // todo add sfx and particles
+        audioSource.Stop(); 
+        
+        audioSource.PlayOneShot(crashSFX);
+        crashParticles.Play();
+        
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadScene", levelLoadDelay);
-        
-        audioSource.PlayOneShot(crashSound);
-        
     }
     
-    private void StartSuccessSequence()
+    void StartSuccessSequence()
     {
         isControlable = false;
         audioSource.Stop();
-        // todo add sfx and particles
+        
+        audioSource.PlayOneShot(successSFX);
+        successParticles.Play();
+        
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", levelLoadDelay);
-        
-        audioSource.PlayOneShot(successSound);
-        
     }
 
     void ReloadScene()
@@ -78,4 +104,6 @@ public class CollisionHandler : MonoBehaviour
         
         SceneManager.LoadScene(nextScene);
     }
+
+    
 }
