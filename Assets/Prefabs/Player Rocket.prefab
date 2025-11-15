@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6541505467011326047}
   - component: {fileID: 4638157700056061183}
   - component: {fileID: 6176488001418694851}
+  - component: {fileID: 6190655019376216668}
   m_Layer: 0
   m_Name: Player Rocket
   m_TagString: Untagged
@@ -136,8 +137,8 @@ MonoBehaviour:
       m_Action: Rotation
       m_Flags: 8
     m_Flags: 0
-  thrustStrength: 1000
-  rotationStrength: 100
+  thrustStrength: 2000
+  rotationStrength: 150
   mainEngineSFX: {fileID: 8300000, guid: 511834d20ff206f48b8ad2e19cddaf7d, type: 3}
   mainEngineParticles: {fileID: 674021336011664996}
   leftThrustParticles: {fileID: 8547364794327184471}
@@ -178,8 +179,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.52, y: 1.890516, z: 1}
-  m_Center: {x: 0.110000014, y: 0.44590342, z: 0}
+  m_Size: {x: 1.675869, y: 1.890516, z: 1}
+  m_Center: {x: 0.08585739, y: 0.44590342, z: 0}
 --- !u!54 &4638157700056061183
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -220,7 +221,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -304,6 +305,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6190655019376216668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5047010314927338081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9beff0c09d002c94db8ebc322aef9710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ApplicationQuit
 --- !u!1001 &26743691059488266
 PrefabInstance:
   m_ObjectHideFlags: 0
